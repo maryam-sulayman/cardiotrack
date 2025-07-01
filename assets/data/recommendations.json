@@ -1,0 +1,81 @@
+{
+    "riskLevel": {
+      "High": [
+        {
+          "task": "Walk 30 minutes after lunch",
+          "level": 1,
+          "escalatesTo": "Walk 40 minutes after lunch"
+        },
+        {
+          "task": "Avoid processed foods today",
+          "level": 1
+        }
+      ],
+      "Medium": [
+        {
+          "task": "Take a 20 min walk",
+          "level": 1,
+          "escalatesTo": "Take a 30 min walk"
+        },
+        {
+          "task": "Add a fruit to breakfast",
+          "level": 1
+        }
+      ],
+      "Low": [
+        {
+          "task": "Maintain 2L water intake",
+          "level": 1
+        },
+        {
+          "task": "Reflect on one healthy habit today",
+          "level": 1
+        }
+      ]
+    },
+    "behaviours": {
+      "sleep": {
+        "low": [
+          {
+            "task": "Go to bed 30 mins earlier",
+            "level": 1,
+            "escalatesTo": "Go to bed 45 mins earlier"
+          }
+        ]
+      },
+      "stress": {
+        "high": [
+          {
+            "task": "Listen to a calming playlist",
+            "level": 1
+          },
+          {
+            "task": "Do 5 minutes of deep breathing",
+            "level": 1
+          }
+        ]
+      },
+      "smoking": {
+        "true": [
+          {
+            "task": "Skip your usual smoke break today",
+            "level": 1,
+            "escalatesTo": "Skip 2 smoke breaks today"
+          }
+        ]
+      }
+    },
+    "demographics": {
+      "Female_Black African": [
+        {
+          "task": "Eat leafy greens today (supports BP)",
+          "level": 1
+        },
+        {
+          "task": "Drink hibiscus tea to support heart health",
+          "level": 1
+        }
+      ]
+    }
+  }
+  
