@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, Alert } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '@/config/firebaseConfig';
+import { firebaseAuth, db } from '@/config/firebaseConfig';
 import { useRouter } from 'expo-router';
 
 export default function SignUpScreen() {
@@ -13,7 +13,7 @@ export default function SignUpScreen() {
 
   const handleSignUp = async () => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(firebaseAuth, email, password);
       const user = userCredential.user;
 
       // Save additional user info

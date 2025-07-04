@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, Alert } from 'react-native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/config/firebaseConfig';
+import { firebaseAuth } from '@/config/firebaseConfig';
 import { useRouter } from 'expo-router';
 
 export default function LoginScreen() {
@@ -11,7 +11,7 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(firebaseAuth, email, password);
       Alert.alert('Success', 'Logged in!');
       router.replace('/'); // You can redirect to home or habit logger
     } catch (error) {

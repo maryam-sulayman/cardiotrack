@@ -1,6 +1,6 @@
 import { Button, Alert } from 'react-native';
 import { signOut } from 'firebase/auth';
-import { auth } from '@/config/firebaseConfig';
+import { firebaseAuth } from '@/config/firebaseConfig';
 import { useRouter } from 'expo-router';
 
 export default function LogoutButton() {
@@ -8,7 +8,7 @@ export default function LogoutButton() {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      await signOut(firebaseAuth);
       Alert.alert('Logged out');
       router.replace('/auth/login');
     } catch (error) {
