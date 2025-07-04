@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Alert } from 'react-native';
 import { signOut } from 'firebase/auth';
 import { firebaseAuth } from '@/config/firebaseConfig';
@@ -9,12 +10,11 @@ export default function LogoutButton() {
   const handleLogout = async () => {
     try {
       await signOut(firebaseAuth);
-      Alert.alert('Logged out');
-      router.replace('/auth/login');
+      router.replace('/welcome');
     } catch (error) {
-      Alert.alert('Error', error.message);
+      Alert.alert('Logout Failed', error.message);
     }
   };
 
-  return <Button title="Logout" onPress={handleLogout} />;
+  return <Button title="Log Out" onPress={handleLogout} />;
 }

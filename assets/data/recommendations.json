@@ -1,81 +1,246 @@
 {
-    "riskLevel": {
-      "High": [
+  "riskLevel": {
+    "High": [
+      {
+        "task": "Walk 30 minutes after lunch",
+        "level": 1,
+        "priority": "High",
+        "escalatesTo": "Walk 40 minutes after lunch"
+      },
+      {
+        "task": "Avoid processed foods today",
+        "level": 1,
+        "priority": "High"
+      },
+      {
+        "task": "Monitor blood pressure at home",
+        "level": 1,
+        "priority": "Medium"
+      },
+      {
+        "task": "Take a salt-free day challenge",
+        "level": 1,
+        "priority": "High"
+      },
+      {
+        "task": "Limit caffeine after 4pm",
+        "level": 1,
+        "priority": "Low"
+      }
+    ],
+    "Medium": [
+      {
+        "task": "Take a 20-minute walk",
+        "level": 1,
+        "priority": "Medium",
+        "escalatesTo": "Take a 30-minute walk"
+      },
+      {
+        "task": "Add a fruit to breakfast",
+        "level": 1,
+        "priority": "Low"
+      },
+      {
+        "task": "Stretch for 5 mins before bed",
+        "level": 1,
+        "priority": "Low"
+      },
+      {
+        "task": "Include a fibre-rich meal today",
+        "level": 1,
+        "priority": "Medium"
+      },
+      {
+        "task": "Do 10 mins of breathing exercises",
+        "level": 1,
+        "priority": "Medium"
+      }
+    ],
+    "Low": [
+      {
+        "task": "Maintain 2L water intake",
+        "level": 1,
+        "priority": "Low"
+      },
+      {
+        "task": "Reflect on one healthy habit today",
+        "level": 1,
+        "priority": "Low"
+      },
+      {
+        "task": "Swap your usual snack for a healthier option",
+        "level": 1,
+        "priority": "Low"
+      },
+      {
+        "task": "Do light stretching for 10 mins",
+        "level": 1,
+        "priority": "Low"
+      }
+    ]
+  },
+  "behaviours": {
+    "sleep": {
+      "low": [
         {
-          "task": "Walk 30 minutes after lunch",
+          "task": "Go to bed 30 mins earlier",
           "level": 1,
-          "escalatesTo": "Walk 40 minutes after lunch"
+          "priority": "High",
+          "escalatesTo": "Go to bed 45 mins earlier"
         },
         {
-          "task": "Avoid processed foods today",
-          "level": 1
-        }
-      ],
-      "Medium": [
-        {
-          "task": "Take a 20 min walk",
+          "task": "Turn off screens 1 hour before sleep",
           "level": 1,
-          "escalatesTo": "Take a 30 min walk"
+          "priority": "Medium"
         },
         {
-          "task": "Add a fruit to breakfast",
-          "level": 1
-        }
-      ],
-      "Low": [
-        {
-          "task": "Maintain 2L water intake",
-          "level": 1
-        },
-        {
-          "task": "Reflect on one healthy habit today",
-          "level": 1
+          "task": "Try sleep-focused meditation tonight",
+          "level": 1,
+          "priority": "Medium"
         }
       ]
     },
-    "behaviours": {
-      "sleep": {
-        "low": [
-          {
-            "task": "Go to bed 30 mins earlier",
-            "level": 1,
-            "escalatesTo": "Go to bed 45 mins earlier"
-          }
-        ]
-      },
-      "stress": {
-        "high": [
-          {
-            "task": "Listen to a calming playlist",
-            "level": 1
-          },
-          {
-            "task": "Do 5 minutes of deep breathing",
-            "level": 1
-          }
-        ]
-      },
-      "smoking": {
-        "true": [
-          {
-            "task": "Skip your usual smoke break today",
-            "level": 1,
-            "escalatesTo": "Skip 2 smoke breaks today"
-          }
-        ]
-      }
-    },
-    "demographics": {
-      "Female_Black African": [
+    "stress": {
+      "high": [
         {
-          "task": "Eat leafy greens today (supports BP)",
-          "level": 1
+          "task": "Listen to a calming playlist",
+          "level": 1,
+          "priority": "Medium"
         },
         {
-          "task": "Drink hibiscus tea to support heart health",
-          "level": 1
+          "task": "Do 5 minutes of deep breathing",
+          "level": 1,
+          "priority": "High"
+        },
+        {
+          "task": "Take 15 mins of alone time today",
+          "level": 1,
+          "priority": "Medium"
+        }
+      ]
+    },
+    "smoking": {
+      "true": [
+        {
+          "task": "Skip your usual smoke break today",
+          "level": 1,
+          "priority": "High",
+          "escalatesTo": "Skip 2 smoke breaks today"
+        },
+        {
+          "task": "Track your cravings in a notes app",
+          "level": 1,
+          "priority": "Medium"
+        }
+      ]
+    },
+    "hydration": {
+      "low": [
+        {
+          "task": "Drink a glass of water first thing in the morning",
+          "level": 1,
+          "priority": "Medium"
+        },
+        {
+          "task": "Add a slice of lemon to your water today",
+          "level": 1,
+          "priority": "Low"
+        },
+        {
+          "task": "Set a reminder to drink every 2 hours",
+          "level": 1,
+          "priority": "High"
+        }
+      ]
+    },
+    "steps": {
+      "low": [
+        {
+          "task": "Walk while taking a phone call",
+          "level": 1,
+          "priority": "Medium"
+        },
+        {
+          "task": "Take stairs instead of the lift today",
+          "level": 1,
+          "priority": "Low"
+        },
+        {
+          "task": "Do a 10 min walking loop outside",
+          "level": 1,
+          "priority": "Medium"
         }
       ]
     }
+  },
+  "demographics": {
+    "Female_Black African": [
+      {
+        "task": "Eat leafy greens today (supports BP)",
+        "level": 1,
+        "priority": "Medium"
+      },
+      {
+        "task": "Drink hibiscus tea to support heart health",
+        "level": 1,
+        "priority": "Low"
+      },
+      {
+        "task": "Prepare a home-cooked meal using fresh veg",
+        "level": 1,
+        "priority": "Medium"
+      }
+    ],
+    "Male_South Asian": [
+      {
+        "task": "Limit added sugar today",
+        "level": 1,
+        "priority": "High"
+      },
+      {
+        "task": "Try 10 mins of yoga or stretching",
+        "level": 1,
+        "priority": "Low"
+      },
+      {
+        "task": "Eat a fibre-rich breakfast",
+        "level": 1,
+        "priority": "Medium"
+      }
+    ],
+    "Female_White British": [
+      {
+        "task": "Replace salty snacks with nuts or fruit",
+        "level": 1,
+        "priority": "Medium"
+      },
+      {
+        "task": "Spend 15 mins walking outdoors",
+        "level": 1,
+        "priority": "Low"
+      },
+      {
+        "task": "Drink herbal tea instead of caffeinated",
+        "level": 1,
+        "priority": "Low"
+      }
+    ],
+    "Male_Mixed": [
+      {
+        "task": "Track your meals today to spot patterns",
+        "level": 1,
+        "priority": "Medium"
+      },
+      {
+        "task": "Avoid sugary drinks today",
+        "level": 1,
+        "priority": "High"
+      },
+      {
+        "task": "Plan your meals for the next 2 days",
+        "level": 1,
+        "priority": "Medium"
+      }
+    ]
   }
-  
+}

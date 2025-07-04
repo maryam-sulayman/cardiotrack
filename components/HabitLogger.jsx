@@ -1,7 +1,11 @@
+// app/(tabs)/habitlogger.jsx
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
-import { generatePlan } from '@/utils/generatePlan';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { collection, addDoc, serverTimestamp, getDoc, doc } from 'firebase/firestore';
+import { firebaseAuth, db } from '@/config/firebaseConfig';
+import { getHeartRiskScore } from '@/utils/heartRisk';
 
 export default function HabitLogger() {
   const [water, setWater] = useState('');
@@ -9,81 +13,85 @@ export default function HabitLogger() {
   const [steps, setSteps] = useState('');
   const [stress, setStress] = useState('');
   const [smoking, setSmoking] = useState('');
-
-  const [gender, setGender] = useState('');
-  const [ethnicity, setEthnicity] = useState('');
-  const [age, setAge] = useState('');
   const [apHi, setApHi] = useState('');
+  const [apLo, setApLo] = useState('');
 
   const router = useRouter();
 
-  const handleSubmit = () => {
-    const profile = {
-      water: parseFloat(water),
-      sleep: parseFloat(sleep),
-      steps: parseInt(steps),
-      stress: parseInt(stress),
-      smoking: smoking.toLowerCase() === 'yes',
-      gender: gender.trim(),
-      ethnicity: ethnicity.trim(),
-      age: parseInt(age),
-      ap_hi: parseInt(apHi)
-    };
-
-    // Simulate riskLevel (temporary logic)
-    let riskLevel = 'High';
-    if (profile.ap_hi < 130 && profile.sleep >= 6 && profile.stress < 6) {
-      riskLevel = 'Medium';
-    }
-    if (profile.ap_hi < 120 && profile.sleep >= 7 && profile.stress < 4) {
-      riskLevel = 'Low';
+  const handleSubmit = async () => {
+    const user = firebaseAuth.currentUser;
+    if (!user) {
+      Alert.alert('Error', 'User not logged in.');
+      return;
     }
 
-    const userProfile = {
-      ...profile,
-      riskLevel,
-    };
+    try {
+      // Get profile info from Firestore (age, gender, ethnicity, weight, height)
+      const profileSnap = await getDoc(doc(db, 'users', user.uid));
+      const profileData = profileSnap.exists() ? profileSnap.data() : {};
 
-    // Pass to plan screen
-    router.push({
-      pathname: '/plan',
-      params: { userProfile: JSON.stringify(userProfile) },
-    });
+      const habitData = {
+        water: parseFloat(water),
+        sleep: parseFloat(sleep),
+        steps: parseInt(steps),
+        stress: parseInt(stress),
+        smoking: smoking.toLowerCase() === 'yes',
+        ap_hi: parseInt(apHi),
+        ap_lo: parseInt(apLo),
+      };
+
+      const combined = {
+        ...profileData,
+        ...habitData
+      };
+
+      const { score, risk } = getHeartRiskScore(combined);
+
+      await addDoc(collection(db, 'habitLogs'), {
+        ...habitData,
+        uid: user.uid,
+        heartScore: score,
+        riskLevel: risk,
+        createdAt: serverTimestamp(),
+      });
+
+      Alert.alert('Success', 'Habits logged and analysed!');
+      router.replace('/');
+    } catch (error) {
+      Alert.alert('Error', 'Something went wrong: ' + error.message);
+    }
   };
 
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Log Your Health Info</Text>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+        <Text style={styles.title}>Log Your Daily Health</Text>
 
-      <Text>Water Intake (L)</Text>
-      <TextInput style={styles.input} keyboardType="numeric" value={water} onChangeText={setWater} />
+        <Text>Water Intake (L)</Text>
+        <TextInput style={styles.input} keyboardType="numeric" value={water} onChangeText={setWater} />
 
-      <Text>Sleep Hours</Text>
-      <TextInput style={styles.input} keyboardType="numeric" value={sleep} onChangeText={setSleep} />
+        <Text>Sleep Hours</Text>
+        <TextInput style={styles.input} keyboardType="numeric" value={sleep} onChangeText={setSleep} />
 
-      <Text>Steps</Text>
-      <TextInput style={styles.input} keyboardType="numeric" value={steps} onChangeText={setSteps} />
+        <Text>Steps</Text>
+        <TextInput style={styles.input} keyboardType="numeric" value={steps} onChangeText={setSteps} />
 
-      <Text>Stress Level (1-10)</Text>
-      <TextInput style={styles.input} keyboardType="numeric" value={stress} onChangeText={setStress} />
+        <Text>Stress Level (1-10)</Text>
+        <TextInput style={styles.input} keyboardType="numeric" value={stress} onChangeText={setStress} />
 
-      <Text>Smoking (yes/no)</Text>
-      <TextInput style={styles.input} value={smoking} onChangeText={setSmoking} />
+        <Text>Smoking (yes/no)</Text>
+        <TextInput style={styles.input} value={smoking} onChangeText={setSmoking} />
 
-      <Text>Gender</Text>
-      <TextInput style={styles.input} value={gender} onChangeText={setGender} />
+        <Text>Systolic BP (ap_hi)</Text>
+        <TextInput style={styles.input} keyboardType="numeric" value={apHi} onChangeText={setApHi} />
 
-      <Text>Ethnicity</Text>
-      <TextInput style={styles.input} value={ethnicity} onChangeText={setEthnicity} />
+        <Text>Diastolic BP (ap_lo)</Text>
+        <TextInput style={styles.input} keyboardType="numeric" value={apLo} onChangeText={setApLo} />
 
-      <Text>Age</Text>
-      <TextInput style={styles.input} keyboardType="numeric" value={age} onChangeText={setAge} />
-
-      <Text>Systolic Blood Pressure (ap_hi)</Text>
-      <TextInput style={styles.input} keyboardType="numeric" value={apHi} onChangeText={setApHi} />
-
-      <Button title="Submit & Generate Plan" onPress={handleSubmit} />
-    </ScrollView>
+        <Button title="Submit & Generate Plan" onPress={handleSubmit} />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
