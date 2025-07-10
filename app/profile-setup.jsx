@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, ScrollView, Alert, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { doc, setDoc } from 'firebase/firestore';
 import { firebaseAuth, db } from '@/config/firebaseConfig';
@@ -9,7 +9,7 @@ export default function ProfileSetup() {
   const router = useRouter();
   const user = firebaseAuth.currentUser;
   const initialName = user?.displayName || '';
-const [name, setName] = useState(initialName);
+  const [name, setName] = useState(initialName);
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [height, setHeight] = useState('');
@@ -33,7 +33,7 @@ const [name, setName] = useState(initialName);
     if (!age || isNaN(age)) newErrors.age = 'Valid age required';
     if (!gender) newErrors.gender = 'Required';
     if (!ethnicity) newErrors.ethnicity = 'Required';
-    if (!heightFt || isNaN(heightFt)) newErrors.heightFt = 'Required';
+    if (!height || isNaN(height)) newErrors.height = 'Required';
     if (!weight || isNaN(weight)) newErrors.weight = 'Required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -62,42 +62,54 @@ const [name, setName] = useState(initialName);
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>👋 Hey, {initialName || 'there'}! Let's set up your profile.</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+  <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    keyboardVerticalOffset={100}
+  >
+    <View style={styles.container}>
+        
+    <Text style={styles.title}>👋 Hey, {initialName || 'there'}! Let's set up your profile.</Text>
 
-      <TextInput placeholder="Full Name" value={name} onChangeText={setName} style={styles.input} />
-      {errors.name && <Text style={styles.error}>{errors.name}</Text>}
+<TextInput placeholder="Full Name" value={name} onChangeText={setName} style={styles.input} />
+{errors.name && <Text style={styles.error}>{errors.name}</Text>}
 
-      <TextInput placeholder="Age" value={age} onChangeText={setAge} keyboardType="numeric" style={styles.input} />
-      {errors.age && <Text style={styles.error}>{errors.age}</Text>}
+<TextInput placeholder="Age" value={age} onChangeText={setAge} keyboardType="numeric" style={styles.input} />
+{errors.age && <Text style={styles.error}>{errors.age}</Text>}
 
-      <TextInput placeholder="Gender" value={gender} onChangeText={setGender} style={styles.input} />
-      {errors.gender && <Text style={styles.error}>{errors.gender}</Text>}
+<TextInput placeholder="Gender" value={gender} onChangeText={setGender} style={styles.input} />
+{errors.gender && <Text style={styles.error}>{errors.gender}</Text>}
 
-      <Text style={styles.label}>Ethnicity</Text>
-      <View style={{ zIndex: 1000, marginBottom: 10 }}>
-  <DropDownPicker
-    open={open}
-    value={ethnicity}
-    items={ethnicityOptions}
-    setOpen={setOpen}
-    setValue={setEthnicity}
-    setItems={setEthnicityOptions}
-    placeholder="Select your ethnicity"
-    style={{ borderColor: '#ccc' }}
-    dropDownContainerStyle={{ borderColor: '#ccc' }}
-  />
+<Text style={styles.label}>Ethnicity</Text>
+<View style={{ zIndex: 1000, marginBottom: 10 }}>
+<DropDownPicker
+open={open}
+value={ethnicity}
+items={ethnicityOptions}
+setOpen={setOpen}
+setValue={setEthnicity}
+setItems={setEthnicityOptions}
+placeholder="Select your ethnicity"
+style={{ borderColor: '#ccc' }}
+dropDownContainerStyle={{ borderColor: '#ccc' }}
+/>
 </View>
 {errors.ethnicity && <Text style={styles.error}>{errors.ethnicity}</Text>}
-      {errors.ethnicity && <Text style={styles.error}>{errors.ethnicity}</Text>}
+{errors.ethnicity && <Text style={styles.error}>{errors.ethnicity}</Text>}
 
-      <TextInput placeholder="Height (cm)" value={height} onChangeText={setHeight} keyboardType="numeric" style={styles.input} />
+<TextInput placeholder="Height (cm)" value={height} onChangeText={setHeight} keyboardType="numeric" style={styles.input} />
 
-      <TextInput placeholder="Weight (kg)" value={weight} onChangeText={setWeight} keyboardType="numeric" style={styles.input} />
-      {errors.weight && <Text style={styles.error}>{errors.weight}</Text>}
+<TextInput placeholder="Weight (kg)" value={weight} onChangeText={setWeight} keyboardType="numeric" style={styles.input} />
+{errors.weight && <Text style={styles.error}>{errors.weight}</Text>}
 
-      <Button title="Save Profile" onPress={handleSubmit} />
-    </ScrollView>
+<Button title="Save Profile" onPress={handleSubmit} />
+    </View>
+  </KeyboardAvoidingView>
+</SafeAreaView>
+
+
+      
   );
 }
 

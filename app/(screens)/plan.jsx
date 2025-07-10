@@ -1,21 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
-import { generatePlan } from '@/utils/generatePlan';
+import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { firebaseAuth, db } from '@/config/firebaseConfig';
 
 export default function PlanScreen() {
-  const { userProfile } = useLocalSearchParams();
-  const profile = JSON.parse(userProfile);
+  const { plan } = useLocalSearchParams();
+  const decodedPlan = decodeURIComponent(plan);
+  const planItems = JSON.parse(decodedPlan);
 
-  const plan = generatePlan(profile);
+  const [completion, setCompletion] = useState(new Array(planItems.length).fill(false));
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const user = firebaseAuth.currentUser;
+    if (user) {
+      setUserId(user.uid);
+      loadCompletion(user.uid);
+    }
+  }, []);
+
+  const loadCompletion = async (uid) => {
+    const ref = doc(db, 'users', uid);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      const data = snap.data();
+      if (data.gptAnalysis?.completion) {
+        setCompletion(data.gptAnalysis.completion);
+      }
+    }
+  };
+
+  const toggleCompletion = async (index) => {
+    const updated = [...completion];
+    updated[index] = !updated[index];
+    setCompletion(updated);
+
+    const ref = doc(db, 'users', userId);
+    await setDoc(ref, {
+      gptAnalysis: {
+        completion: updated
+      }
+    }, { merge: true });
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Your Personalised 7-Day Plan</Text>
-      {plan.map((item, index) => (
-        <View key={index} style={styles.card}>
+      {planItems.map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          style={[styles.card, completion[index] && styles.cardDone]}
+          onPress={() => toggleCompletion(index)}
+        >
           <Text style={styles.day}>{item}</Text>
-        </View>
+          <Text style={styles.status}>{completion[index] ? '✅ Done' : '⭕ Not Yet'}</Text>
+        </TouchableOpacity>
       ))}
     </ScrollView>
   );
@@ -38,7 +78,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 12,
   },
+  cardDone: {
+    backgroundColor: '#D6F5D6',
+  },
   day: {
     fontSize: 16,
+    marginBottom: 4,
+  },
+  status: {
+    color: '#555',
+    fontSize: 14,
   },
 });
