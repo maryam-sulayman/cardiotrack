@@ -32,7 +32,13 @@ yarn-error.*
 
 # local env files
 .env*.local
-
+.env
+git rm --cached app/flask-api/.env
+# optional extras
+**/.env
+*.env
+.env.*
+app/**/.env
 # typescript
 *.tsbuildinfo
 
@@ -40,3 +46,8 @@ app-example
 
 # Ignore Firebase config
 config/firebaseConfig.js
+
+config/cloudinary.js
+
+app/flask-api/.env
+app/flask-api/.env

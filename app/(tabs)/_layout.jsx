@@ -1,11 +1,10 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import React from 'react';
+import { Platform } from 'react-native';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -25,33 +24,42 @@ export default function TabLayout() {
         }),
       }}>
       <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Dashboard',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="habitlogger"
-        options={{
-          title: 'Log',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-        <Tabs.Screen
-        name="plan"
-        options={{
-          title: 'Plan',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-        <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
+      name="index"
+      options={{
+        title: 'Dashboard',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="view-dashboard" size={25} color={color} />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="habitlogger"
+      options={{
+        title: 'Log',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="notebook-outline" size={25} color={color} />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="plan"
+      options={{
+        title: 'Plan',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="calendar-check" size={25} color={color} />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="profile"
+      options={{
+        title: 'Profile',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="account" size={25} color={color} />
+        ),
+      }}
+    />
+
     </Tabs>
   );
 }

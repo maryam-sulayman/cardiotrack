@@ -1,13 +1,14 @@
-import { Stack, useRouter, useSegments } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
 import { firebaseAuth } from '@/config/firebaseConfig';
-import { View, ActivityIndicator } from 'react-native';
+import { initPlanNotifications } from '@/utils/planNotifications';
+import { Stack, useRouter, useSegments } from 'expo-router';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
+
 
 export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
-
   const [user, setUser] = useState(null);
   const [userChecked, setUserChecked] = useState(false);
 
@@ -39,6 +40,10 @@ export default function RootLayout() {
       router.replace('/');
     }
   }, [userChecked, user, segments]);
+
+   useEffect(() => {
+    initPlanNotifications().catch(() => {});
+  }, []);
 
   // Show loading screen while checking
   if (!userChecked) {
