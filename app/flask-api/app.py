@@ -83,7 +83,6 @@ def analyze():
         sleep        = to_float(user_data.get("sleep"), 0.0)
         completion   = user_data.get("completion", [])
 
-
         is_smoker    = smoking if isinstance(smoking, bool) else str(smoking).lower() in ("yes", "true", "1")
         risk_percent = calculate_framingham_risk(age, gender, systolic_bp, is_smoker, bmi)
         heart_age    = estimate_heart_age(age, risk_percent)
@@ -110,7 +109,8 @@ def analyze():
                     "type": "array", "items": {"type": "string"}, "minItems": 7, "maxItems": 7
                 }
             },
-            "required": ["clinical_summary", "dashboard_messages", "weekly_plan"]
+            "required": ["clinical_summary", "dashboard_messages", "weekly_plan"],
+            "additionalProperties": False
         }
 
         prompt = f"""
@@ -146,24 +146,33 @@ RULES
   • Add a clear metric (duration / count / steps) when it obviously fits; otherwise use a clear completion criterion.
   • Reflect completion: repeat/reshape missed items; progress completed items slightly.
   • Avoid vague lines (“walk 30 min”) and admin (“check your BP at home”).
-  • Keep each line compact but complete (aim ~20-32 words).
+  • Keep each line compact but complete (aim ~20–32 words).
   • Each item MUST begin exactly with “Day {{n}}: ”.
-
 
 EXAMPLES (format, not content)
 - Day 1: Movement — Set an alarm for 19:45 to take a 25–30-min brisk walk after dinner today to get some physical activity.
 - Day 3: Sleep — Set an alarm for 22:15. Do a 30-min wind-down: take a warm shower, dim lights and read a book in bed. Lights out at 23:00, Target is 7 hours sleep.
 - Day 5: Strength — After breakfast, do 2× (8 squats, 8 wall-push-ups, 20-s plank) in your living room. Finish in ≤ 15 min.
 
-Return ONLY valid JSON with keys:
-{json.dumps(schema)}
+Return ONLY a JSON object with exactly these keys and shapes (no extra text):
+{{
+  "clinical_summary": "string",
+  "dashboard_messages": ["string", "string", "string (optional)"],
+  "weekly_plan": ["Day 1: …", "Day 2: …", "Day 3: …", "Day 4: …", "Day 5: …", "Day 6: …", "Day 7: …"]
+}}
 """
 
         resp = client.chat.completions.create(
-            model="gpt-4o-mini",                # keep your preferred model
+            model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.5,
-            response_format={"type": "json_object"}  # if unsupported, fallback parser below handles it
+            response_format={
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "care_plan",
+                    "schema": schema
+                }
+            }
         )
         raw = resp.choices[0].message.content
 
@@ -178,7 +187,22 @@ Return ONLY valid JSON with keys:
         summary_bullets  = [s.strip() for s in (payload.get("dashboard_messages") or []) if isinstance(s, str) and s.strip()]
         weekly_plan      = [s.strip() for s in (payload.get("weekly_plan") or []) if isinstance(s, str) and s.strip()]
 
-        # Enforce exactly 7 Day-lines
+        # --- Minimal safety fallbacks for empty fields ---
+        if not clinical_summary:
+            clinical_summary = (
+                f"Your estimated 10-year cardiovascular risk is {risk_percent:.1f}%. "
+                f"Your estimated heart age is {heart_age}. Key drivers appear to include "
+                f"{'smoking, ' if is_smoker else ''}blood pressure {systolic_bp}/{diastolic_bp} and BMI {bmi:.1f}. "
+                "This week we will prioritise consistent movement, a simple bedtime routine, brief stress tools, and a short strength set."
+            )
+
+        if not summary_bullets:
+            summary_bullets = [
+                f"Your 10-year risk is {risk_percent:.1f}%. Small daily wins will lower it.",
+                "Focus this week: steady walks, 10–15 min strength, and a calm wind-down.",
+                "You’ve got this—consistency beats intensity."
+            ]
+
         # Enforce exactly 7 Day-lines (no vague terms, no Plan B)
         weekly_plan = [p for p in weekly_plan if p.lower().startswith("day")]
         if len(weekly_plan) != 7:
@@ -193,7 +217,6 @@ Return ONLY valid JSON with keys:
             ]
             weekly_plan = [f"Day {i+1}: {fallback_by_theme[i]}" for i in range(7)]
 
-
         return jsonify({
             "heart_risk_percent": risk_percent,
             "estimated_heart_age": heart_age,
@@ -205,6 +228,7 @@ Return ONLY valid JSON with keys:
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 
 # --- Meal Tips Endpoint ---

@@ -17,7 +17,7 @@ import Header from "@/components/Header";
 import HeartScoreCard from "@/components/HeartScoreCard";
 import MealPlan from "@/components/MealPlan";
 import PlanList from "@/components/PlanList";
-import { SummarySection } from "@/components/SummarySection";
+import SummarySection from "@/components/SummarySection";
 
 
 export default function DashboardScreen() {
@@ -148,6 +148,7 @@ export default function DashboardScreen() {
       });
 
       const data = await response.json();
+      console.log("🔥 API /analyze response:", data);
       const newPlan = {
         heartRisk: data.heart_risk_percent ?? null,
         heartAge: data.estimated_heart_age ?? null,
@@ -207,7 +208,6 @@ if (updated[index]) {
   };
 
   if (isGenerating) {
-    <Text style={styles.name}>{titleCaseName(profile?.name || '')}</Text>
 const firstName = (titleCaseName(profile?.name || '').split(' ')[0]) || 'There';
     return <GeneratingScreen name={firstName} />;
   }
