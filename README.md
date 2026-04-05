@@ -31,8 +31,7 @@ Cardiovascular disease is one of the leading causes of death globally, yet many 
 
 | AI Clinical Summary | Completion | Meal Plan |
 |---------------------|------------|-----------|
-| ![Clinical Summary](https://github.com/user-attachments/assets/e86b0354-4e3a-8815-6cc4da4f9795) | ![Completion](https://github.com/user-attachments/assets/307dbf21-2898-4440-8357-c553ce6c8af3) | ![Meal Plan](https://github.com/user-attachments/assets/1ee8bfd6-31e6-4622-94e6-0a416d34cd7e) |
-
+| ![Clinical Summary](https://github.com/user-attachments/assets/e86b0354-8564-4e3a-8815-6cc4da4f9795) | ![Completion](https://github.com/user-attachments/assets/307dbf21-2898-4440-8357-c553ce6c8af3) | ![Meal Plan](https://github.com/user-attachments/assets/1ee8bfd6-31e6-4622-94e6-0a416d34cd7e) |
 ---
 
 ## Tech Stack
