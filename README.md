@@ -23,7 +23,7 @@ Cardiovascular disease is one of the leading causes of death globally, yet many 
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 | Dashboard | Habit Logging | AI Weekly Plan |
 |-----------|--------------|----------------|
 | ![Dashboard](https://github.com/user-attachments/assets/7264cbf0-8315-4fa5-8196-2edab8300134) | ![Habit Logging](https://github.com/user-attachments/assets/e488ba5d-71fb-4ac6-875c-fd4cc9da1a69) | ![AI Weekly Plan](https://github.com/user-attachments/assets/5479e016-16f8-409b-9bab-33e2aa42859e) |
