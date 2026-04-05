@@ -24,14 +24,14 @@ Cardiovascular disease is one of the leading causes of death globally, yet many 
 ---
 
 ## 📸 Screenshots
-
 | Dashboard | Habit Logging | AI Weekly Plan |
 |-----------|--------------|----------------|
-| ![Dashboard](https://github.com/user-attachments/assets/00a7b020-03c6-4bef-8e75-78b92b597b97) | ![Logging](https://github.com/user-attachments/assets/1f3e288b-2eb5-4089-8d2e-faab186f9f6e) | ![Weekly Plan](https://github.com/user-attachments/assets/b69e0a64-b999-4f18-b29a-f49e621b8ef0) |
+| ![Dashboard](https://github.com/user-attachments/assets/7264cbf0-8315-4fa5-8196-2edab8300134) | ![Habit Logging](https://github.com/user-attachments/assets/e488ba5d-71fb-4ac6-875c-fd4cc9da1a69) | ![AI Weekly Plan](https://github.com/user-attachments/assets/5479e016-16f8-409b-9bab-33e2aa42859e) |
 
 | AI Clinical Summary | Completion | Meal Plan |
 |---------------------|------------|-----------|
-| ![Clinical Summary](https://github.com/user-attachments/assets/e86b0354-8564-4e3a-8815-6cc4da4f9795) | ![Completion](https://github.com/user-attachments/assets/307dbf21-2898-4440-8357-c553ce6c8af3) | ![Meal Plan](https://github.com/user-attachments/assets/1ee8bfd6-31e6-4622-94e6-0a416d34cd7e) |
+| ![AI Clinical Summary](https://github.com/user-attachments/assets/f038153f-5428-403e-9360-558244fff347) | ![Completion](https://github.com/user-attachments/assets/4d89da5a-5cbb-42d5-86de-267815dc6ae0) | ![Meal Plan](https://github.com/user-attachments/assets/b373cdb3-8d4f-415d-bbc9-63b2cb0e966b) |
+
 ---
 
 ## Tech Stack
