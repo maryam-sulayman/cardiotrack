@@ -1,50 +1,79 @@
-# Welcome to your Expo app 👋
+# 🫀 CardioTrack
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> An AI-powered mobile health app that helps users at risk of cardiovascular disease build healthier habits through personalised guidance.
 
-## Get started
+---
 
-1. Install dependencies
+## About
 
-   ```bash
-   npm install
-   ```
+CardioTrack was developed as part of an MSc dissertation in Data Science & Artificial Intelligence at Northumbria University, achieving a First Class result.
 
-2. Start the app
+Cardiovascular disease is one of the leading causes of death globally, yet many of its risk factors stem from everyday lifestyle choices — meaning prevention is possible. Most health apps focus on *recording* data but fail to help users *act* on it. CardioTrack bridges that gap by combining clinical risk assessment with AI-generated personalised feedback.
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## Key Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Daily Habit Logging** — users log lifestyle factors including sleep, exercise, diet, stress, and smoking
+- **Framingham Risk Score (FRS)** — a validated clinical model that calculates a user's 10-year cardiovascular risk percentage and heart age
+- **AI Health Summaries** — GPT-4 generates personalised feedback based on the user's logged data and risk profile
+- **Weekly Heart Plan** — GPT-3.5 creates a tailored 7-day improvement plan with achievable goals
+- **Meal Planning Assistant** — GPT-3.5 suggests heart-healthy meal plans based on the user's dietary habits
+- **User Onboarding** — personalised profile setup capturing medical history and lifestyle baseline
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## Tech Stack
 
-When you're ready, run:
+| Layer | Technology |
+|-------|------------|
+| Frontend | React Native |
+| Backend | Firebase (Firestore + Auth) |
+| AI / NLP | OpenAI GPT-4 & GPT-3.5 API |
+| Risk Model | Framingham Risk Score (clinical algorithm) |
+| Image Handling | Cloudinary |
+| Language | TypeScript / JavaScript |
 
-```bash
-npm run reset-project
-```
+---
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Research & Validation
 
-## Learn more
+The app was evaluated through a structured research methodology:
 
-To learn more about developing your project with Expo, look at the following resources:
+- **15 simulated user profiles** were used to validate the accuracy of the Framingham Risk Score implementation against established clinical calculators
+- **2 detailed user profiles** were used to assess the quality, relevance, and reliability of GPT-generated feedback
+- **Usability testing** was conducted using the Mobile App Rating Scale (MARS), with reviewers rating the app highly on engagement, functionality, and aesthetics
+- Results demonstrated that AI can meaningfully enhance mHealth applications beyond simple data logging by providing personalised, actionable guidance
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## What I Learned
 
-Join our community of developers creating universal apps.
+- How to integrate large language models (LLMs) into a production mobile app with appropriate safeguards
+- How to implement and validate a clinical risk algorithm (Framingham Risk Score) in a software context
+- The ethical considerations of using AI in healthcare settings — including transparency, data privacy, and scope of advice
+- How to design for behaviour change using frameworks like the Fogg Behaviour Model and Behaviour Change Techniques (BCTs)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## Dissertation
+
+This project was submitted as a dissertation for the MSc in Web & Mobile Development Technologies at Northumbria University.
+
+**Title:** CardioTrack: Designing an AI-Powered Mobile Health Application to Support Cardiovascular Health Through Behaviour Change
+
+**Result:** First Class (70%)
+
+---
+
+## Disclaimer
+
+CardioTrack is a research and educational project. It is not a medical device and should not be used as a substitute for professional medical advice, diagnosis, or treatment. The Framingham Risk Score is used for educational purposes only.
+
+---
+
+## Author
+
+**Maryam Sulayman**
+MSc Data Science & Artificial Intelligence — University of Liverpool
+[LinkedIn](https://www.linkedin.com/in/maryam-sulayman-4484601b3/) | [GitHub](https://github.com/maryam-sulayman)
