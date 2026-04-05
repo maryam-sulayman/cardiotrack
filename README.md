@@ -23,6 +23,18 @@ Cardiovascular disease is one of the leading causes of death globally, yet many 
 
 ---
 
+## 📸 Screenshots
+
+| Dashboard | Habit Logging | AI Weekly Plan |
+|-----------|--------------|----------------|
+| ![Dashboard](https://github.com/user-attachments/assets/00a7b020-03c6-4bef-8e75-78b92b597b97) | ![Logging](https://github.com/user-attachments/assets/1f3e288b-2eb5-4089-8d2e-faab186f9f6e) | ![Weekly Plan](https://github.com/user-attachments/assets/b69e0a64-b999-4f18-b29a-f49e621b8ef0) |
+
+| AI Clinical Summary | Completion | Meal Plan |
+|---------------------|------------|-----------|
+| ![Clinical Summary](https://github.com/user-attachments/assets/e86b0354-4e3a-8815-6cc4da4f9795) | ![Completion](https://github.com/user-attachments/assets/307dbf21-2898-4440-8357-c553ce6c8af3) | ![Meal Plan](https://github.com/user-attachments/assets/1ee8bfd6-31e6-4622-94e6-0a416d34cd7e) |
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
